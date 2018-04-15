@@ -8,7 +8,7 @@ class App extends Component {
 
 constructor(props){
   super(props);
-  this.state={manager:'',players:[],balance:'',value:'',message:''};
+  this.state={manager:'',players:[],balance:'',value:'',message:'',winner:''};
 }
   async componentDidMount(){
     const manager=await lottery.methods.manager().call();
@@ -38,7 +38,9 @@ constructor(props){
         from:accounts[0]
 
       });
-      this.setState({message:'A Winner has been picked'})
+      const winner=await lottery.methods.displayWinner().call();
+      this .setState({'winner':winner});
+      this.setState({message:'A Winner has been picked and winner is '+this.state.winner});
   };
   render() {
   //  web3.eth.getAccounts().then(console.log);
